@@ -1,0 +1,46 @@
+{
+	"name": "Q100",
+	"levelId": "Hi",
+	"category": "Computer",
+	"subCategory": "C++",
+	"mark": 5.5,
+	"expectedTime": 8.5,
+	"correctedAnswersId": ["12", "211"],
+	"createdBy": "Moaz",
+	"answers": [
+		{
+			"id": "12",
+			"name": "abstraction",
+			"description": "abstraction is to make data abstract"
+		},
+		{
+			"id": "211",
+			"name": "abstraction",
+			"description": "abstraction is to make data clear"
+		}
+	]
+},
+
+{
+	"name": "Q99",
+	"levelId": "Hi",
+	"category": "Computer",
+	"subCategory": "C++",
+	"mark": 5.5,
+	"expectedTime": 8.5,
+	"correctedAnswersId": ["12", "211"],
+	"createdBy": "Moaz",
+	"answers": [
+		{
+			"id": "12",
+			"name": "abstraction",
+			"description": "abstraction is to make data abstract"
+		},
+		{
+			"id": "211",
+			"name": "abstraction",
+			"description": "abstraction is to make data clear"
+		}
+	]
+}
+

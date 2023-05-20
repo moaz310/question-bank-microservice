@@ -1,0 +1,26 @@
+
+Task 1:
+Question-bank-microservce
+
+    - question
+        - id
+        - name
+        - level_id (lo
+        - category
+        - sub_category
+        - mark
+        - expected_time
+        - correct_answer_ids []
+        - created_by
+        - created_at
+        - answers []
+            - id
+            - name
+            - description
+1: wire frame for ui
+2: Database Design (mongo)
+3: Question Bank Microservice [Create new Question -Delete Question-
+List Question(Pagination)-Update Question-Add Answer for existing Question
+-Delete Answer for existing Question]
+4: FrontEnd (Angular)
+5: Integrate Front With BackEnd
