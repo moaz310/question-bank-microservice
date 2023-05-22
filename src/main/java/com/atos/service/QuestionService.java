@@ -2,59 +2,71 @@ package com.atos.service;
 
 import com.atos.entity.Answer;
 import com.atos.entity.Question;
+import com.atos.entity.QuestionList;
 import com.atos.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class QuestionService {
+
     @Autowired
     QuestionRepository questionRepository;
 
-    public Question createQuestion(Question q){
-        System.out.println(new java.util.Date());
-        q.setCreatedAt(new java.util.Date());
-        return questionRepository.save(q);
-    }
-
-    public List<Question> createQuestions(List<Question> q){
-        q.forEach(question -> {question.setCreatedAt(new java.util.Date());});
-        return questionRepository.saveAll(q);
+    public Question createQuestion(Question question){
+        question.setCreatedAt(new java.util.Date());
+        return questionRepository.save(question);
     }
 
     public void deleteQuestionById(String Id){
         questionRepository.deleteById(Id);
     }
 
-    public void deleteQuestion(Question q){
-        questionRepository.delete(q);
+    public QuestionList getWithPagination(Pageable pageable){
+        return new QuestionList(questionRepository.findAll(pageable).getContent());
     }
 
-    public List<Question> getWithPagination(int pageNo, int pageSize){
-        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
-        return questionRepository.findAll(pageable).getContent();
+    public Question updateQuestion(Question question, String questionId){
+        if(questionRepository.findById(questionId).isPresent()) {
+            return questionRepository.save(question);
+        }
+        return null;
     }
 
-    public Question updateQuestion(Question q){
-        return questionRepository.save(q);
+    public Answer addAnswer(String questionId, Answer answer){
+        Optional<Question> questionObject = questionRepository.findById(questionId);
+
+        if(questionObject.isEmpty()) return null;
+
+        Question question = questionObject.get();
+        question.getAnswers().add(answer);
+        updateQuestion(question, answer.getId());
+
+        return answer;
     }
 
-    public Question addAnswer(String questionId, Answer ans){
-        Question q = questionRepository.findById(questionId).get();
-        q.getAnswers().add(ans);
-        updateQuestion(q);
-        return q;
+
+    public void deleteAnswer(String questionId, String answerId) {
+        Optional<Question> questionObject = questionRepository.findById(questionId);
+
+        if(questionObject.isEmpty()) return;
+
+        Question question = questionObject.get();
+        for(Answer answer : question.getAnswers()){
+            if(answer.getId().equals(answerId)){
+                question.getAnswers().remove(answer);
+                System.out.println("yes");
+                updateQuestion(question, questionId);
+                return;
+            }
+        }
     }
 
-    public Question deleteAnswer(String questionId, Answer answer) {
-        Question q = questionRepository.findById(questionId).get();
-        System.out.println(q.getAnswers().remove(answer));
-        updateQuestion(q);
-        return q;
+    public long getDataCount(){
+        return questionRepository.count();
     }
 }

@@ -1,0 +1,14 @@
+1-make url configured
+2-use lumbok
+3-DTO (data transfare object)
+4-create descriptive name
+5-add validation to backend
+6-url naming conventions
+7-path id by pathVariable
+8-do not return list of
+9-use pagaple on control
+10-validate existing of object before update 
+11-check optional if not null
+12-use answer id to delete
+13-(patch not put) partial update 
+14-specify response code on controller

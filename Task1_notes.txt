@@ -1,0 +1,13 @@
+-make url configured [Done]
+-use lumbok [Done]
+-create descriptive name [Done]
+-url naming conventions [Done]
+-path id by pathVariable [Done]
+-do not return list of [Done]
+-use delete for delete request [Done]
+-use updatePatch to update specific entity [Done]
+-pagaple on controller [Done]
+
+-add validation to backend
+-DTO
+-http response status

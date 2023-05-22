@@ -2,56 +2,59 @@ package com.atos.controller;
 
 import com.atos.entity.Answer;
 import com.atos.entity.Question;
+import com.atos.entity.QuestionList;
 import com.atos.service.QuestionService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/question")
+@CrossOrigin
+@RequestMapping("${question.api.path}")
 public class QuestionController {
 
     @Autowired
     QuestionService questionService;
 
-    @PostMapping("/create")
-    public Question createQuestion(@RequestBody Question q){
-        return questionService.createQuestion(q);
+    @PostMapping("${question.api.path.create}")
+    public Question createQuestion(@RequestBody Question question){
+        return questionService.createQuestion(question);
     }
 
-    @PostMapping("/createQuestions")
-    public List<Question> createQuestion(@RequestBody List<Question> q){
-        return questionService.createQuestions(q);
+    @DeleteMapping("${question.api.path.deleteById}")
+    public void deleteById(@PathVariable String questionId){
+        questionService.deleteQuestionById(questionId);
     }
 
-    @PutMapping("/deleteById")
-    public void deleteById(@RequestParam String id){
-        questionService.deleteQuestionById(id);
+    @GetMapping("${question.api.path.getWithPagination}")
+    public QuestionList getWithPagination(@RequestParam int pageNo, @RequestParam int pageSize){
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+        return questionService.getWithPagination(pageable);
     }
 
-    @PutMapping("/delete")
-    public void delete(@RequestBody Question q){
-        questionService.deleteQuestion(q);
+    //add dto for this
+    @PutMapping("${question.api.path.update}")
+    public Question updateQuestion(@RequestBody Question question, @PathVariable String questionId){
+        return questionService.updateQuestion(question, questionId);
     }
 
-    @GetMapping("/getWithPagination")
-    public List<Question> getWithPagination(@RequestParam int pageNo, @RequestParam int pageSize){
-        return questionService.getWithPagination(pageNo, pageSize);
+    @PatchMapping("${question.api.path.addAnswerTo}")
+    public Answer addAnswerToSpecificQuestion(@PathVariable String questionId, @RequestBody Answer answer){
+        return questionService.addAnswer(questionId, answer);
     }
 
-    @PutMapping("/update")
-    public Question updateQuestion(@RequestBody Question q){
-        return questionService.updateQuestion(q);
+    @DeleteMapping("${question.api.path.deleteAnswerFrom}")
+    public void deleteAnswerFromSpecificQuestion(@PathVariable String questionId, @PathVariable String answerId){
+        questionService.deleteAnswer(questionId, answerId);
     }
 
-    @PutMapping("/addAnswerTo/{id}")
-    public Question addAnswerToSpecificQuestion(@PathVariable String id, @RequestBody Answer answer){
-        return questionService.addAnswer(id, answer);
-    }
-
-    @PutMapping("/deleteAnswerFrom/{id}")
-    public Question deleteAnswerFromSpecificQuestion(@PathVariable String id, @RequestBody Answer answer){
-        return questionService.deleteAnswer(id, answer);
+    @GetMapping("${question.api.path.count}")
+    public long dataCount(){
+        return questionService.getDataCount();
     }
 }
