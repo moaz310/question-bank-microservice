@@ -1,24 +1,20 @@
 package com.atos.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
-@Getter @Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Answer {
+
     @Id
     private String id;
 
+    @NotBlank
     private String name;
 
     private String description;
 
-    public Answer() {
-    }
-
-    public Answer(String id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
 }

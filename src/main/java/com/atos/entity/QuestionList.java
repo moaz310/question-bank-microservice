@@ -1,14 +1,12 @@
 package com.atos.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.List;
 
-@Setter @Getter
+@Data
+@AllArgsConstructor
 public class QuestionList {
     List<Question> questions;
-    public QuestionList(List<Question> questions) {
-        this.questions = questions;
-    }
 }

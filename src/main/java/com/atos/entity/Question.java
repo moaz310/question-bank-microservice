@@ -1,18 +1,17 @@
 package com.atos.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "question")
 public class Question {
 
@@ -35,7 +34,7 @@ public class Question {
     private Double expectedTime;
 
     @Field("corrected-answers-id")
-    private List<String> correctedAnswersId;
+    private List<String> correctedAnswersId = new ArrayList<>();
 
     @Field("created-by")
     private String createdBy;
@@ -44,4 +43,12 @@ public class Question {
     private Date createdAt;
 
     private List<Answer> answers;
+
+    public void updateAnswersId(){
+        char answerId = 'A';
+        for(Answer answer : this.getAnswers()){
+            answer.setId(String.valueOf(answerId));
+            answerId++;
+        }
+    }
 }
