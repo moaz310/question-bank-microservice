@@ -53,6 +53,7 @@ public class QuestionService {
 
         Question question = questionObject.get();
         question.getAnswers().add(answer);
+        question.updateAnswersId();
         this.questionRepository.save(question);
         return answer;
     }
@@ -66,7 +67,7 @@ public class QuestionService {
         for (Answer answer : question.getAnswers()) {
             if (answer.getId().equals(answerId)) {
                 question.getAnswers().remove(answer);
-                System.out.println("yes");
+                question.updateAnswersId();
                 this.questionRepository.save(question);
                 return;
             }

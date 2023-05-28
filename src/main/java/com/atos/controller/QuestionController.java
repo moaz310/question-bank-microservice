@@ -33,6 +33,7 @@ public class QuestionController {
                 question.getId(),
                 question.getCreatedAt(),
                 question.getCreatedBy(),
+                question.getAnswers(),
                 "question created"
         );
     }
@@ -60,6 +61,7 @@ public class QuestionController {
                 question.getId(),
                 question.getCreatedAt(),
                 question.getCreatedBy(),
+                question.getAnswers(),
                 "question updated"
         );
     }
